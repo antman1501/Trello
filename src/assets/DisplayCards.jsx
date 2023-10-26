@@ -19,7 +19,7 @@ const DisplayCards = (props) => {
           <Stack onClick={(e)=>setOpen(true)}>{props.card.name}</Stack>
           <Dialog open={open} onClose={handleClose}>
             <CheckLists cardId={props.card.id} cardName={props.card.name}></CheckLists>
-            <Button onClick={handleClose}>Close</Button>
+            <Button variant='outlined' onClick={handleClose} sx={{padding:0,margin:'15px',marginTop:0}}>Close</Button>
           </Dialog>
     </Stack>
   )

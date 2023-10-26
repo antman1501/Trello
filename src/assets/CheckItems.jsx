@@ -76,16 +76,17 @@ const CheckItems = (props) => {
     }
 
   return (
-    <>{console.log()}
-    <Stack>
-        <Stack>{Math.floor((currentProgress*100.0)/totalProgress)}</Stack>
+    <Stack sx={{border:1,marginTop:'10px',padding:1}}>
+        {console.log()}
+    <Stack >
+        <Stack>{Math.floor((currentProgress*100.0)/totalProgress)}%</Stack>
         <LinearProgress variant='determinate' value={Math.floor((currentProgress*100.0)/totalProgress)}/>
     </Stack>
     <FormGroup>
     {checkItems.map((ci)=>{
-        return <Stack key={ci.id} direction='row'>
+        return <Stack key={ci.id} direction='row' sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
             <FormControlLabel control={<Checkbox checked={ci.state=='complete'} onChange={(e)=>checkMark(e,ci)}/>} label={ci.name}></FormControlLabel>
-            <Button onClick={(e)=>deleteCheckItem(ci)}>-</Button>
+            <Button variant='outlined' onClick={(e)=>deleteCheckItem(ci)} sx={{width:'20px',height:'20px'}}>Del</Button>
             </Stack>
     })}
     </FormGroup>
@@ -108,7 +109,7 @@ const CheckItems = (props) => {
             </MenuItem>
             <MenuItem onClick={(e)=>{createCheckItem();handleClose()}}>Add</MenuItem>
         </Menu>
-    </>
+    </Stack>
   )
 }
 

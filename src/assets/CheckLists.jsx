@@ -47,22 +47,22 @@ const CheckLists = (props) => {
     }
 
   return (
-    <Stack>
-        <Stack>{props.cardName}</Stack>
+    <Stack sx={{width:'80vw',padding:2,display:'flex',justifyContent:'space-between'}}>
+        <Stack sx={{display:'flex',alignItems:'center',marginBottom:'10px',fontWeight:'700'}}>{props.cardName}</Stack>
         {checkLists.map((cl)=>{
-            return<Stack key={cl.id}>
-                    <Stack spacing={2} direction='row'>
-                        <Stack>{cl.name}</Stack>
-                        <Button onClick={(e)=>deleteCheckList(cl.id)}>-</Button>
+            return<Stack key={cl.id} sx={{border:1,padding:3,marginBottom:'10px'}}>
+                    <Stack direction='row' sx={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+                        <Stack sx={{textDecoration:'underline'}}>{cl.name}</Stack>
+                        <Button variant='contained' onClick={(e)=>deleteCheckList(cl.id)} sx={{minWidth:'20px',height:'20px'}}>Del</Button>
                     </Stack>
                     <CheckItems card={props.cardId} checkListId={cl.id}></CheckItems>
                 </Stack>
         })}
-        <Button id="basic-button"
+        <Button variant='contained' id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}>
+        onClick={handleClick} sx={{height:'30px'}}>
             Create CheckList
         </Button>
         <Menu id="basic-menu"
