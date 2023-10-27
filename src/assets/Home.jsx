@@ -4,9 +4,6 @@ import { Box, Button, Stack, TextField, Dialog, DialogActions, DialogContent, Di
 import { useNavigate } from 'react-router-dom'
 import { apiContext, tokenContext } from '../App'
 
-//const apiKey="59402f0c1b9427bbe8bc44b40ffff806"
-//const token='ATTAf40296f42fa344149977f263968e1d793a094debbf7ac2019811398789b298bc0B5F40AB'
-
 const Home = () => {
 
     const apiKey=useContext(apiContext)
