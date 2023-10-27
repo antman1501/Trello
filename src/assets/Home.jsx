@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Box, Button, Stack, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, ButtonGroup} from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { apiContext, tokenContext } from '../App'
 
-const apiKey="59402f0c1b9427bbe8bc44b40ffff806"
-const token='ATTAf40296f42fa344149977f263968e1d793a094debbf7ac2019811398789b298bc0B5F40AB'
+//const apiKey="59402f0c1b9427bbe8bc44b40ffff806"
+//const token='ATTAf40296f42fa344149977f263968e1d793a094debbf7ac2019811398789b298bc0B5F40AB'
 
 const Home = () => {
+
+    const apiKey=useContext(apiContext)
+
+    const token=useContext(tokenContext)
 
     const navigate=useNavigate();
 

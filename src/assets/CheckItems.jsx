@@ -1,11 +1,16 @@
 import { Button, Checkbox, FormControlLabel, FormGroup, LinearProgress, Menu, MenuItem, Stack, TextField } from '@mui/material';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { apiContext, tokenContext } from '../App';
 
-const apiKey="59402f0c1b9427bbe8bc44b40ffff806"
-const token='ATTAf40296f42fa344149977f263968e1d793a094debbf7ac2019811398789b298bc0B5F40AB'
+//const apiKey="59402f0c1b9427bbe8bc44b40ffff806"
+//const token='ATTAf40296f42fa344149977f263968e1d793a094debbf7ac2019811398789b298bc0B5F40AB'
 
 const CheckItems = (props) => {
+
+    const apiKey=useContext(apiContext)
+
+    const token=useContext(tokenContext)
 
     const [ checkItems, setCheckItems]=useState([]);
 
@@ -71,7 +76,7 @@ const CheckItems = (props) => {
         }
         axios.delete(`https://api.trello.com/1/checklists/${props.checkListId}/checkItems/${ci.id}?key=${apiKey}&token=${token}`)
         .then(response=>setCheckItems(oldValue=>oldValue.filter(ol=>ol.id!=ci.id)))
-        .then(response=>setTotalProgress(oldValue=>oldValue-1))
+        .then(response=>setTotalProgress(oldValue=>checkItems.length==1?1:oldValue-1))
         
     }
 

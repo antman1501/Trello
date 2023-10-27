@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -7,9 +7,13 @@ import { Button, List, Stack, TextField } from '@mui/material'
 import Home from './assets/Home'
 import Lists from './assets/Lists'
 import LoadingScreen from './assets/LoadingScreen'
+import { ErrorBoundary } from "react-error-boundary";
 
-const apiKey="59402f0c1b9427bbe8bc44b40ffff806"
-const token='ATTAf40296f42fa344149977f263968e1d793a094debbf7ac2019811398789b298bc0B5F40AB'
+const Api_Key=import.meta.env.VITE_Api_Key
+const Token=import.meta.env.VITE_Token
+
+export const apiContext=createContext();
+export const tokenContext=createContext();
 
 function App() {
 
@@ -24,16 +28,22 @@ function App() {
   return (
     <>
     {loading?<LoadingScreen>{loadScreen()}</LoadingScreen>:
-    <Stack sx={{width:'98vw',height:'97vh',backgroundColor:'hsl(0, 0%, 98%)',borderRadius:'5px'}}>
-    <Stack>
-      <Button variant='contained' onClick={(e)=>navigate('/')}>Trello</Button>
-    </Stack>
-    <Routes>
-      <Route path='/' element={<Home />}>
-      </Route>
-      <Route path='/boards/:id' element={<Lists/>}></Route>
-    </Routes>
-    </Stack>}
+    <ErrorBoundary fallback={<div>Something Went Wrong</div>}>
+    <apiContext.Provider value={Api_Key}>
+      <tokenContext.Provider value={Token}>
+        <Stack sx={{width:'98vw',height:'97vh',backgroundColor:'hsl(0, 0%, 98%)',borderRadius:'5px'}}>
+          <Stack>
+            <Button variant='contained' onClick={(e)=>navigate('/')}>Trello</Button>
+          </Stack>
+          <Routes>
+            <Route path='/' element={<Home />}>
+            </Route>
+            <Route path='/boards/:id' element={<Lists/>}></Route>
+          </Routes>
+        </Stack>
+      </tokenContext.Provider>
+    </apiContext.Provider>
+    </ErrorBoundary>}
     </>
   )
 }
