@@ -1,14 +1,27 @@
 import { Button, Input, Menu, MenuItem, Popover, Stack, TextField } from '@mui/material'
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import CheckItems from './CheckItems';
 import { apiContext, tokenContext } from '../App';
+
+const initialState={
+    checkLists:[]
+}
+
+const reducer=(state,action)=>{
+    switch(action.type){
+        case 'fetchlists':
+            return {checkLists:action.payload}
+    }
+}
 
 const CheckLists = (props) => {
 
     const apiKey=useContext(apiContext)
 
     const token=useContext(tokenContext)
+
+    const [ state, dispatch]=useReducer(reducer,initialState)
 
     const [ checkLists, setCheckLists]=useState([]);
 
@@ -31,6 +44,7 @@ const CheckLists = (props) => {
             let response=await axios.get(`https://api.trello.com/1/cards/${props.cardId}/checklists?key=${apiKey}&token=${token}`);
             //console.log(response.data);
             setCheckLists(response.data);
+            dispatch({type:'fetchlists', payload:response.data})
         }
 
         fetchData();
@@ -49,9 +63,10 @@ const CheckLists = (props) => {
     }
 
   return (
-    <Stack sx={{width:'80vw',padding:2,display:'flex',justifyContent:'space-between'}}>
+    <Stack sx={{width:'50vw',padding:2,display:'flex',justifyContent:'space-between'}}>
+        {console.log(state.checkLists)}
         <Stack sx={{display:'flex',alignItems:'center',marginBottom:'10px',fontWeight:'700'}}>{props.cardName}</Stack>
-        {checkLists.map((cl)=>{
+        {state.checkLists.map((cl)=>{
             return<Stack key={cl.id} sx={{border:1,padding:3,marginBottom:'10px'}}>
                     <Stack direction='row' sx={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
                         <Stack sx={{textDecoration:'underline'}}>{cl.name}</Stack>

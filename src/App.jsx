@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useReducer, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -15,19 +15,32 @@ const Token=import.meta.env.VITE_Token
 export const apiContext=createContext();
 export const tokenContext=createContext();
 
+const initialState={
+  load:true
+}
+
+const reducer=(state,action)=>{
+  switch(action.type){
+    case 'loadScreen':
+      return {load: false}
+    default:
+      return state
+  }
+}
+
 function App() {
 
   const navigate=useNavigate();
 
-  const [loading, setLoading]=useState(true)
+  const [state, dispatch]=useReducer(reducer,initialState)
 
   async function loadScreen(){
-    await setTimeout(()=>{setLoading(false)},1000);
+    await setTimeout(()=>{dispatch({type:'loadScreen'})},1000);
   }
   
   return (
     <>
-    {loading?<LoadingScreen>{loadScreen()}</LoadingScreen>:
+    {state.load?<LoadingScreen>{loadScreen()}</LoadingScreen>:
     <ErrorBoundary fallback={<div>Something Went Wrong</div>}>
     <apiContext.Provider value={Api_Key}>
       <tokenContext.Provider value={Token}>
