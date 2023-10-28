@@ -45,7 +45,7 @@ const Home = () => {
     <Stack direction='row' sx={{width:'92.5vw',padding:'20px',display:'flex',flexWrap:'wrap',}}>
         {boards.length>0 && boards.map(board=>{
            return (
-            <Stack key={board.id} onClick={(e)=>navigate(`boards/${board.id}`)} sx={{width:150,height:'100px',backgroundColor:'#1976d2',color:'white',display:'flex',justifyContent:'center',alignItems:'center',borderRadius:'5px',marginRight:'10px',marginBottom:'10px'}}>{board.name}</Stack>
+            <Stack key={board.id} onClick={(e)=>navigate(`boards/${board.id}`,{state:board.prefs.backgroundImage})} sx={{width:150,height:'100px',backgroundImage:`url(${board.prefs.backgroundImage?board.prefs.backgroundImage:'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/original/96bdbe972dc446362179d8255c9beb29/photo-1696144706485-ff7825ec8481'})`,backgroundRepeat:'no-repeat',backgroundSize:'cover',color:'white',display:'flex',borderRadius:'5px',marginRight:'10px',marginBottom:'10px',padding:1}}>{board.name}</Stack>
            )
         })}
         <Button variant='contained' onClick={()=>setOpen(true)} sx={{height:'100px'}}>Create New Board</Button>
