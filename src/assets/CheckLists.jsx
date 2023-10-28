@@ -49,7 +49,7 @@ const CheckLists = (props) => {
     }
 
   return (
-    <Stack sx={{width:'80vw',padding:2,display:'flex',justifyContent:'space-between'}}>
+    <Stack sx={{padding:2,display:'flex',justifyContent:'space-between'}}>
         <Stack sx={{display:'flex',alignItems:'center',marginBottom:'10px',fontWeight:'700'}}>{props.cardName}</Stack>
         {checkLists.map((cl)=>{
             return<Stack key={cl.id} sx={{border:1,padding:3,marginBottom:'10px'}}>
@@ -64,7 +64,7 @@ const CheckLists = (props) => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick} sx={{height:'30px'}}>
+        onClick={handleClick} sx={{width:'fit-content',height:'30px'}}>
             Create CheckList
         </Button>
         <Menu id="basic-menu"

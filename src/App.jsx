@@ -1,6 +1,8 @@
 import { createContext, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+// import logo from 'logo.png'
+
 import './App.css'
 import { Route,Routes, useNavigate } from 'react-router-dom'
 import { Button, List, Stack, TextField } from '@mui/material'
@@ -33,7 +35,7 @@ function App() {
       <tokenContext.Provider value={Token}>
         <Stack sx={{width:'98vw',height:'97vh',backgroundColor:'hsl(0, 0%, 98%)',borderRadius:'5px'}}>
           <Stack>
-            <Button variant='contained' onClick={(e)=>navigate('/')}>Trello</Button>
+            <Button onClick={(e)=>navigate('/')} sx={{}}><img src='logo.png' height='50px'></img></Button>
           </Stack>
           <Routes>
             <Route path='/' element={<Home />}>
