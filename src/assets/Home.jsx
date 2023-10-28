@@ -26,6 +26,9 @@ const Home = () => {
     }
         fetchData();
     },[])
+// backgroundImage
+// : 
+// "https://trello-backgrounds.s3.amazonaws.com/SharedBackground/original/96bdbe972dc446362179d8255c9beb29/photo-1696144706485-ff7825ec8481"
 
     function createBoard(){
         axios.post(`https://api.trello.com/1/boards/?name=${boardName}&key=${apiKey}&token=${token}`)
@@ -38,14 +41,15 @@ const Home = () => {
     {
         setOpen(false);
     }
-
+// console.log(boards);
   return (
     <>
     {/* {console.log(boards)} */}
     <Stack direction='row' sx={{width:'92.5vw',padding:'20px',display:'flex',flexWrap:'wrap',}}>
         {boards.length>0 && boards.map(board=>{
+            console.log(board.prefs.backgroundImage);
            return (
-            <Stack key={board.id} onClick={(e)=>navigate(`boards/${board.id}`)} sx={{width:150,height:'100px',backgroundColor:'#1976d2',color:'white',display:'flex',justifyContent:'center',alignItems:'center',borderRadius:'5px',marginRight:'10px',marginBottom:'10px'}}>{board.name}</Stack>
+            <Stack key={board.id} onClick={(e)=>navigate(`boards/${board.id}`,{state:board.prefs.backgroundImage})} sx={{width:150,height:'100px',color:'white',backgroundImage:`url(${board.prefs.backgroundImage?board.prefs.backgroundImage:'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/original/96bdbe972dc446362179d8255c9beb29/photo-1696144706485-ff7825ec8481'})`,backgroundRepeat:'no-repeat',backgroundSize:'cover',display:'flex',borderRadius:'5px',marginRight:'10px',marginBottom:'10px',padding:1,fontWeight:'bold'}}>{board.name}</Stack>
            )
         })}
         <Button variant='contained' onClick={()=>setOpen(true)} sx={{height:'100px'}}>Create New Board</Button>

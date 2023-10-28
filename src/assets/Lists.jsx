@@ -1,7 +1,7 @@
 import { Stack,List, ListItem, ListItemText, ListItemButton, Box, Accordion, AccordionSummary, Typography, AccordionDetails, Input, Button, Menu, MenuItem, TextField } from '@mui/material'
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import CardItems from './Carditems'
 import { apiContext, tokenContext } from '../App'
 
@@ -10,6 +10,10 @@ const Lists = () => {
     const apiKey=useContext(apiContext)
 
     const token=useContext(tokenContext)
+
+    const location=useLocation();
+
+    const bkimg=location.state;
 
     const {id}=useParams();
 
@@ -32,7 +36,7 @@ const Lists = () => {
     useEffect(()=>{
         async function fetchData(){
             let response=await axios.get(`https://api.trello.com/1/boards/${id}/lists?key=${apiKey}&token=${token}`)
-            //console.log(response.data);
+            console.log(response.data);
             setLists(response.data);
         }
 
@@ -54,7 +58,7 @@ const Lists = () => {
   return (
     <>
     {/* {console.log(lists)} */}
-    <Stack direction='row' sx={{padding:'10px',display:'flex',flexWrap:'wrap'}}>
+    <Stack direction='row' sx={{height:'100%',padding:'10px',display:'flex',flexWrap:'wrap',backgroundImage:`url(${bkimg?bkimg:null})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}}>
     {lists.map(l=>{
         return<List key={l.id} sx={{border:'solid',margin:'10px',width:'200px',height:'fit-content',backgroundColor:'white'}}>
             <ListItem sx={{display:'flex',justifyContent:'space-between'}}>
