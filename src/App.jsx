@@ -9,8 +9,8 @@ import Lists from './assets/Lists'
 import LoadingScreen from './assets/LoadingScreen'
 import { ErrorBoundary } from "react-error-boundary";
 
-const Api_Key=import.meta.env.VITE_Api_Key
-const Token=import.meta.env.VITE_Token
+const Api_Key=import.meta.env.VITE_API_KEY
+const Token=import.meta.env.VITE_TOKEN
 
 export const apiContext=createContext();
 export const tokenContext=createContext();
