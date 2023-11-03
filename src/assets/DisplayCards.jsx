@@ -18,6 +18,7 @@ const DisplayCards = (props) => {
 
   return (
     <Stack direction='row'>
+      {}
           <Stack onClick={(e)=>setOpen(true)}>{props.card.name}</Stack>
           <Dialog open={open} onClose={handleClose}>
             <CheckLists cardId={props.card.id} cardName={props.card.name}></CheckLists>

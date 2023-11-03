@@ -4,8 +4,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import CardItems from './Carditems'
 import { apiContext, tokenContext } from '../App'
+import { useDispatch, useSelector } from 'react-redux'
+import { displayList, addList, deleteList, createListName } from './ReduxFiles/lists'
 
 const Lists = () => {
+
+    const lists=useSelector(state=>state.list)
+
+    const dispatch=useDispatch()
 
     const apiKey=useContext(apiContext)
 
@@ -17,9 +23,9 @@ const Lists = () => {
 
     const {id}=useParams();
 
-    const [ lists, setLists]=useState([]);
+    //const [ lists, setLists]=useState([]);
 
-    const [ list, setList]=useState('');
+    //const [ list, setList]=useState('');
 
     const [anchorEl, setAnchorEl]=useState(null);
 
@@ -37,29 +43,28 @@ const Lists = () => {
         async function fetchData(){
             let response=await axios.get(`https://api.trello.com/1/boards/${id}/lists?key=${apiKey}&token=${token}`)
             //console.log(response.data);
-            setLists(response.data);
+            dispatch(displayList(response.data));
         }
 
         fetchData();
     },[])
 
     function createList(){
-        axios.post(`https://api.trello.com/1/lists?name=${list}&idBoard=${id}&key=${apiKey}&token=${token}`)
-        .then(response=>setLists(oldValue=>[...oldValue,response.data]))
-        .then(response=>setList(''))
+        axios.post(`https://api.trello.com/1/lists?name=${lists.list}&idBoard=${id}&key=${apiKey}&token=${token}`)
+        .then(response=>dispatch(addList(response.data)))
     }
 
     async function archiveList(lId){
         //console.log(lId);
        await axios.put(`https://api.trello.com/1/lists/${lId}/closed?key=${apiKey}&token=${token}&value=true`)
-        .then(response =>setLists(oldValue=>oldValue.filter(ol=>ol.id!=lId)));
+        .then(response =>dispatch(deleteList(lid)));
     }
 
   return (
     <>
     {/* {console.log(lists)} */}
     <Stack direction='row' sx={{height:'100%',padding:'10px',display:'flex',flexWrap:'wrap',backgroundImage:`url(${bkimg?bkimg:'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/original/96bdbe972dc446362179d8255c9beb29/photo-1696144706485-ff7825ec8481'})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}}>
-    {lists.map(l=>{
+    {lists.lists.map(l=>{
         return<List key={l.id} sx={{border:'solid',margin:'10px',width:'200px',height:'fit-content',backgroundColor:'white'}}>
             <ListItem sx={{display:'flex',justifyContent:'space-between'}}>
             <Stack>{l.name}</Stack>
@@ -81,7 +86,7 @@ const Lists = () => {
           'aria-labelledby': 'basic-button',
         }}>
             <MenuItem>
-            <TextField label='List Name' variant='outlined' value={list} onChange={e=>setList(e.target.value)}></TextField>
+            <TextField label='List Name' variant='outlined' value={lists.list} onChange={e=>dispatch(createListName(e.target.value))}></TextField>
             </MenuItem>
             <MenuItem onClick={(e)=>{createList();handleClose()}}>Add</MenuItem>
         </Menu>
