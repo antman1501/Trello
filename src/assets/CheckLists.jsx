@@ -64,7 +64,7 @@ const CheckLists = (props) => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick} sx={{width:'fit-content',height:'30px'}}>
+        onClick={handleClick} sx={{height:'30px'}}>
             Create CheckList
         </Button>
         <Menu id="basic-menu"

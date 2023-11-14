@@ -16,6 +16,7 @@ const Token=import.meta.env.VITE_TOKEN
 
 export const apiContext=createContext();
 export const tokenContext=createContext();
+export const backgroundImage=createContext();
 
 function App() {
 
@@ -35,7 +36,7 @@ function App() {
       <tokenContext.Provider value={Token}>
         <Stack sx={{width:'98vw',height:'97vh',backgroundColor:'hsl(0, 0%, 98%)',borderRadius:'5px'}}>
           <Stack>
-            <Button onClick={(e)=>navigate('/')} sx={{}}><img src='logo.png' height='50px'></img></Button>
+            <Button onClick={(e)=>navigate('/')} sx={{}}><img src='src/logo2.png' height='50px'></img></Button>
           </Stack>
           <Routes>
             <Route path='/' element={<Home />}>

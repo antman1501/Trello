@@ -1,11 +1,13 @@
 import { Stack,List, ListItem, ListItemText, ListItemButton, Box, Accordion, AccordionSummary, Typography, AccordionDetails, Input, Button, Menu, MenuItem, TextField } from '@mui/material'
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import CardItems from './Carditems'
 import { apiContext, tokenContext } from '../App'
 
 const Lists = () => {
+
+    const navigate=useNavigate();
 
     const apiKey=useContext(apiContext)
 
@@ -57,10 +59,15 @@ const Lists = () => {
 
   return (
     <>
-    {/* {console.log(lists)} */}
-    <Stack direction='row' sx={{height:'100%',padding:'10px',display:'flex',flexWrap:'wrap',backgroundImage:`url(${bkimg?bkimg:'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/original/96bdbe972dc446362179d8255c9beb29/photo-1696144706485-ff7825ec8481'})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}}>
+    {console.log(bkimg)}
+    <Stack sx={{height:'100%',padding:'10px',display:'flex',flexWrap:'wrap',backgroundImage:`url(${bkimg.bkimg?bkimg.bkimg:'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/original/96bdbe972dc446362179d8255c9beb29/photo-1696144706485-ff7825ec8481'})`,backgroundRepeat:'no-repeat',backgroundSize:'cover'}}>
+    <Stack direction="row">
+    <Button variant="contained" sx={{width:"8rem",margin:"10px"}} onClick={(e)=>navigate('/')}>Go Back</Button>
+    <Button variant="contained" sx={{width:"8rem",margin:"10px"}}>{bkimg.name}</Button>
+    </Stack>
+    <Stack direction="row">
     {lists.map(l=>{
-        return<List key={l.id} sx={{border:'solid',margin:'10px',width:'200px',height:'fit-content',backgroundColor:'white'}}>
+        return<List key={l.id} sx={{border:'none',borderRadius:"5px",margin:'10px',width:'200px',height:'fit-content',backgroundColor:'rgba(215, 235, 255, 1)'}}>
             <ListItem sx={{display:'flex',justifyContent:'space-between'}}>
             <Stack>{l.name}</Stack>
             <Button onClick={(e)=>archiveList(l.id)} sx={{backgroundColor:'#1976d2',color:'white',borderRadius:'5px',minWidth:'20px',height:'20px'}}>Del</Button>
@@ -85,6 +92,7 @@ const Lists = () => {
             </MenuItem>
             <MenuItem onClick={(e)=>{createList();handleClose()}}>Add</MenuItem>
         </Menu>
+        </Stack>
     </Stack>
     </>
   )

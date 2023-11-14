@@ -86,10 +86,17 @@ const CheckItems = (props) => {
     </Stack>
     <FormGroup>
     {checkItems.map((ci)=>{
-        return <Stack key={ci.id} direction='row' sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+        return <>{ci.state=='incomplete'?<Stack key={ci.id} direction='row' sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
             <FormControlLabel control={<Checkbox checked={ci.state=='complete'} onChange={(e)=>checkMark(e,ci)}/>} label={ci.name}></FormControlLabel>
             <Button variant='outlined' onClick={(e)=>deleteCheckItem(ci)} sx={{width:'20px',height:'20px'}}>Del</Button>
-            </Stack>
+            </Stack>:null}</>
+    })}
+    {currentProgress?<Stack>Completed</Stack>:null}
+    {checkItems.map((ci)=>{
+        return <>{ci.state=='complete'?<Stack key={ci.id} direction='row' sx={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+            <FormControlLabel control={<Checkbox checked={ci.state=='complete'} onChange={(e)=>checkMark(e,ci)}/>} label={ci.name} sx={{color:"rgba(0,0,0,.25)",textDecoration:"line-through"}}></FormControlLabel>
+            <Button variant='outlined' onClick={(e)=>deleteCheckItem(ci)} sx={{width:'20px',height:'20px'}}>Del</Button>
+            </Stack>:null}</>
     })}
     </FormGroup>
     <Button id="basic-button"
