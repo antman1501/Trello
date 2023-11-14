@@ -34,7 +34,7 @@ function App() {
     <ErrorBoundary fallback={<div>Something Went Wrong</div>}>
     <apiContext.Provider value={Api_Key}>
       <tokenContext.Provider value={Token}>
-        <Stack sx={{width:'98vw',height:'97vh',backgroundColor:'hsl(0, 0%, 98%)',borderRadius:'5px'}}>
+        <Stack sx={{width:'100%',height:'100vh',backgroundColor:'hsl(0, 0%, 98%)',borderRadius:'5px'}}>
           <Stack>
             <Button onClick={(e)=>navigate('/')} sx={{}}><img src='src/logo2.png' height='50px'></img></Button>
           </Stack>
