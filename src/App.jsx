@@ -36,7 +36,7 @@ function App() {
       <tokenContext.Provider value={Token}>
         <Stack sx={{width:'100%',height:'100vh',backgroundColor:'hsl(0, 0%, 98%)',borderRadius:'5px'}}>
           <Stack>
-            <Button onClick={(e)=>navigate('/')} sx={{}}><img src="public/logo.png" height='50px'></img></Button>
+            <Button onClick={(e)=>navigate('/')} ><img src="public/logo.png" height='50px'/></Button>
           </Stack>
           <Routes>
             <Route path='/' element={<Home />}>
