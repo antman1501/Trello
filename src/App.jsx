@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-// import logo from 'logo.png'
+//import logo from '/logo2.png'
 
 import './App.css'
 import { Route,Routes, useNavigate } from 'react-router-dom'
@@ -36,7 +36,7 @@ function App() {
       <tokenContext.Provider value={Token}>
         <Stack sx={{width:'100%',height:'100vh',backgroundColor:'hsl(0, 0%, 98%)',borderRadius:'5px'}}>
           <Stack>
-            <Button onClick={(e)=>navigate('/')} sx={{}}><img src='public/logo.png' height='50px'></img></Button>
+            <Button onClick={(e)=>navigate('/')} sx={{}}><img src="public/logo.png" height='50px'></img></Button>
           </Stack>
           <Routes>
             <Route path='/' element={<Home />}>
